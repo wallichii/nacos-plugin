@@ -51,116 +51,41 @@ COMMENT ON COLUMN "config_info"."tenant_id" IS '租户字段';
 COMMENT ON COLUMN "config_info"."encrypted_data_key" IS '秘钥';
 COMMENT ON TABLE "config_info" IS 'config_info';
 
-
 -- ----------------------------
--- Table structure for config_info_aggr
+-- Table structure for config_info
 -- ----------------------------
-DROP TABLE IF EXISTS "config_info_aggr";
-CREATE TABLE "config_info_aggr" (
-  "id" bigserial NOT NULL,
-  "data_id" varchar(255)  NOT NULL,
-  "group_id" varchar(255)  NOT NULL,
-  "datum_id" varchar(255)  NOT NULL,
-  "content" text  NOT NULL,
-  "gmt_modified" timestamp(6) NOT NULL,
-  "app_name" varchar(128) ,
-  "tenant_id" varchar(128) 
+DROP TABLE IF EXISTS "config_info_gray";
+CREATE TABLE "config_info_gray" (
+                               "id" bigserial NOT NULL,
+                               "data_id" varchar(255)  NOT NULL,
+                               "group_id" varchar(255) ,
+                               "content" text  NOT NULL,
+                               "md5" varchar(32) ,
+                               "src_user" text ,
+                               "src_ip" varchar(20) ,
+                               "gmt_create" timestamp(6) NOT NULL,
+                               "gmt_modified" timestamp(6) NOT NULL,
+                               "app_name" varchar(128) ,
+                               "tenant_id" varchar(128) ,
+                               "gray_name" varchar(128) NOT NULL,
+                               "gray_rule" text NOT NULL,
+                               "encrypted_data_key" text  NOT NULL
 )
 ;
-COMMENT ON COLUMN "config_info_aggr"."id" IS 'id';
-COMMENT ON COLUMN "config_info_aggr"."data_id" IS 'data_id';
-COMMENT ON COLUMN "config_info_aggr"."group_id" IS 'group_id';
-COMMENT ON COLUMN "config_info_aggr"."datum_id" IS 'datum_id';
-COMMENT ON COLUMN "config_info_aggr"."content" IS '内容';
-COMMENT ON COLUMN "config_info_aggr"."gmt_modified" IS '修改时间';
-COMMENT ON COLUMN "config_info_aggr"."tenant_id" IS '租户字段';
-COMMENT ON TABLE "config_info_aggr" IS '增加租户字段';
 
--- ----------------------------
--- Records of config_info_aggr
--- ----------------------------
-BEGIN;
-COMMIT;
-
--- ----------------------------
--- Table structure for config_info_beta
--- ----------------------------
-DROP TABLE IF EXISTS "config_info_beta";
-CREATE TABLE "config_info_beta" (
-  "id" bigserial NOT NULL,
-  "data_id" varchar(255)  NOT NULL,
-  "group_id" varchar(128)  NOT NULL,
-  "app_name" varchar(128) ,
-  "content" text  NOT NULL,
-  "beta_ips" varchar(1024) ,
-  "md5" varchar(32) ,
-  "gmt_create" timestamp(6) NOT NULL,
-  "gmt_modified" timestamp(6) NOT NULL,
-  "src_user" text ,
-  "src_ip" varchar(20) ,
-  "tenant_id" varchar(128) ,
-  "encrypted_data_key" text  NOT NULL
-)
-;
-COMMENT ON COLUMN "config_info_beta"."id" IS 'id';
-COMMENT ON COLUMN "config_info_beta"."data_id" IS 'data_id';
-COMMENT ON COLUMN "config_info_beta"."group_id" IS 'group_id';
-COMMENT ON COLUMN "config_info_beta"."app_name" IS 'app_name';
-COMMENT ON COLUMN "config_info_beta"."content" IS 'content';
-COMMENT ON COLUMN "config_info_beta"."beta_ips" IS 'betaIps';
-COMMENT ON COLUMN "config_info_beta"."md5" IS 'md5';
-COMMENT ON COLUMN "config_info_beta"."gmt_create" IS '创建时间';
-COMMENT ON COLUMN "config_info_beta"."gmt_modified" IS '修改时间';
-COMMENT ON COLUMN "config_info_beta"."src_user" IS 'source user';
-COMMENT ON COLUMN "config_info_beta"."src_ip" IS 'source ip';
-COMMENT ON COLUMN "config_info_beta"."tenant_id" IS '租户字段';
-COMMENT ON COLUMN "config_info_beta"."encrypted_data_key" IS '秘钥';
-COMMENT ON TABLE "config_info_beta" IS 'config_info_beta';
-
--- ----------------------------
--- Records of config_info_beta
--- ----------------------------
-BEGIN;
-COMMIT;
-
--- ----------------------------
--- Table structure for config_info_tag
--- ----------------------------
-DROP TABLE IF EXISTS "config_info_tag";
-CREATE TABLE "config_info_tag" (
-  "id" bigserial NOT NULL,
-  "data_id" varchar(255)  NOT NULL,
-  "group_id" varchar(128)  NOT NULL,
-  "tenant_id" varchar(128) ,
-  "tag_id" varchar(128)  NOT NULL,
-  "app_name" varchar(128) ,
-  "content" text  NOT NULL,
-  "md5" varchar(32) ,
-  "gmt_create" timestamp(6) NOT NULL,
-  "gmt_modified" timestamp(6) NOT NULL,
-  "src_user" text ,
-  "src_ip" varchar(20) 
-)
-;
-COMMENT ON COLUMN "config_info_tag"."id" IS 'id';
-COMMENT ON COLUMN "config_info_tag"."data_id" IS 'data_id';
-COMMENT ON COLUMN "config_info_tag"."group_id" IS 'group_id';
-COMMENT ON COLUMN "config_info_tag"."tenant_id" IS 'tenant_id';
-COMMENT ON COLUMN "config_info_tag"."tag_id" IS 'tag_id';
-COMMENT ON COLUMN "config_info_tag"."app_name" IS 'app_name';
-COMMENT ON COLUMN "config_info_tag"."content" IS 'content';
-COMMENT ON COLUMN "config_info_tag"."md5" IS 'md5';
-COMMENT ON COLUMN "config_info_tag"."gmt_create" IS '创建时间';
-COMMENT ON COLUMN "config_info_tag"."gmt_modified" IS '修改时间';
-COMMENT ON COLUMN "config_info_tag"."src_user" IS 'source user';
-COMMENT ON COLUMN "config_info_tag"."src_ip" IS 'source ip';
-COMMENT ON TABLE "config_info_tag" IS 'config_info_tag';
-
--- ----------------------------
--- Records of config_info_tag
--- ----------------------------
-BEGIN;
-COMMIT;
+COMMENT ON COLUMN "config_info_gray"."id" IS 'id';
+COMMENT ON COLUMN "config_info_gray"."data_id" IS 'data_id';
+COMMENT ON COLUMN "config_info_gray"."content" IS 'content';
+COMMENT ON COLUMN "config_info_gray"."md5" IS 'md5';
+COMMENT ON COLUMN "config_info_gray"."gmt_create" IS '创建时间';
+COMMENT ON COLUMN "config_info_gray"."gmt_modified" IS '修改时间';
+COMMENT ON COLUMN "config_info_gray"."src_user" IS 'source user';
+COMMENT ON COLUMN "config_info_gray"."src_ip" IS 'source ip';
+COMMENT ON COLUMN "config_info_gray"."tenant_id" IS '租户字段';
+COMMENT ON COLUMN "config_info_gray"."gray_name" IS 'gray_name';
+COMMENT ON COLUMN "config_info_gray"."gray_rule" IS 'gray_rule';
+COMMENT ON COLUMN "config_info_gray"."encrypted_data_key" IS '秘钥';
+COMMENT ON TABLE "config_info_gray" IS 'config_info_gray';
 
 -- ----------------------------
 -- Table structure for config_tags_relation
@@ -243,7 +168,10 @@ CREATE TABLE "his_config_info" (
   "src_ip" varchar(20) ,
   "op_type" char(10) ,
   "tenant_id" varchar(128) ,
-  "encrypted_data_key" text  NOT NULL
+  "encrypted_data_key" text  NOT NULL,
+  "publish_type" varchar(50) DEFAULT 'formal',
+  "gray_name" varchar(50),
+  "ext_info" text
 )
 ;
 COMMENT ON COLUMN "his_config_info"."app_name" IS 'app_name';
@@ -381,34 +309,16 @@ CREATE UNIQUE INDEX "uk_configinfo_datagrouptenant" ON "config_info" ("data_id",
 ALTER TABLE "config_info" ADD CONSTRAINT "config_info_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
--- Indexes structure for table config_info_aggr
+-- Indexes structure for table config_info_gray
 -- ----------------------------
-CREATE UNIQUE INDEX "uk_configinfoaggr_datagrouptenantdatum" ON "config_info_aggr" USING btree ("data_id","group_id","tenant_id","datum_id");
+CREATE UNIQUE INDEX "uk_configinfogray_datagrouptenantgray" ON "config_info_gray" USING btree ("data_id","group_id","tenant_id","gray_name");
+CREATE INDEX "idx_configinfogray_dataid_gmt_modified" ON "config_info_gray"("data_id","gmt_modified");
+CREATE INDEX "idx_configinfogray_gmt_modified" ON "config_info_gray"("gmt_modified");
 
 -- ----------------------------
--- Primary Key structure for table config_info_aggr
+-- Primary Key structure for table config_info_gray
 -- ----------------------------
-ALTER TABLE "config_info_aggr" ADD CONSTRAINT "config_info_aggr_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Indexes structure for table config_info_beta
--- ----------------------------
-CREATE UNIQUE INDEX "uk_configinfobeta_datagrouptenant" ON "config_info_beta" USING btree ("data_id","group_id","tenant_id");
-
--- ----------------------------
--- Primary Key structure for table config_info_beta
--- ----------------------------
-ALTER TABLE "config_info_beta" ADD CONSTRAINT "config_info_beta_pkey" PRIMARY KEY ("id");
-
--- ----------------------------
--- Indexes structure for table config_info_tag
--- ----------------------------
-CREATE UNIQUE INDEX "uk_configinfotag_datagrouptenanttag" ON "config_info_tag" USING btree ("data_id","group_id","tenant_id","tag_id");
-
--- ----------------------------
--- Primary Key structure for table config_info_tag
--- ----------------------------
-ALTER TABLE "config_info_tag" ADD CONSTRAINT "config_info_tag_pkey" PRIMARY KEY ("id");
+ALTER TABLE "config_info_gray" ADD CONSTRAINT "config_info_gray_pkey" PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Indexes structure for table config_tags_relation
@@ -445,10 +355,10 @@ ALTER TABLE "group_capacity" ADD CONSTRAINT "group_capacity_pkey" PRIMARY KEY ("
 CREATE INDEX "idx_did" ON "his_config_info" USING btree (
   "data_id"
 );
-CREATE INDEX "idx_gmt_create" ON "his_config_info" USING btree (
+CREATE INDEX "idx_his_config_info_gmt_create" ON "his_config_info" USING btree (
   "gmt_create"
 );
-CREATE INDEX "idx_gmt_modified" ON "his_config_info" USING btree (
+CREATE INDEX "idx_his_config_info_gmt_modified" ON "his_config_info" USING btree (
   "gmt_modified"
 );
 
@@ -493,3 +403,25 @@ CREATE UNIQUE INDEX "uk_tenant_info_kptenantid" ON "tenant_info" USING btree (
   "kp",
   "tenant_id"
 );
+CREATE INDEX "idx_tenant_capacity_tenant_id" ON "tenant_capacity"("tenant_id");
+
+-- ----------------------------
+-- Primary Key structure for table tenant_capacity
+-- ----------------------------
+ALTER TABLE "tenant_info" ADD CONSTRAINT "tenant_info_pkey" PRIMARY KEY ("id");
+
+
+
+-- ----------------------------
+-- alter table owner
+-- ----------------------------
+alter table config_info  owner to nacos;
+alter table config_info_gray  owner to nacos;
+alter table config_tags_relation  owner to nacos;
+alter table group_capacity  owner to nacos;
+alter table his_config_info  owner to nacos;
+alter table permissions  owner to nacos;
+alter table roles  owner to nacos;
+alter table tenant_capacity  owner to nacos;
+alter table tenant_info  owner to nacos;
+alter table users  owner to nacos;

@@ -15,15 +15,19 @@
  */
 package com.alibaba.nacos.plugin.datasource.impl.oracle;
 
+import java.util.Collections;
 import java.util.List;
 
+import com.alibaba.nacos.common.utils.CollectionUtils;
 import com.alibaba.nacos.common.utils.NamespaceUtil;
 import com.alibaba.nacos.common.utils.StringUtils;
 import com.alibaba.nacos.plugin.datasource.constants.DatabaseTypeConstant;
 import com.alibaba.nacos.plugin.datasource.dialect.DatabaseDialect;
-import com.alibaba.nacos.plugin.datasource.enums.TrustedOracleFunctionEnum;
+import com.alibaba.nacos.plugin.datasource.enums.mysql.TrustedMysqlFunctionEnum;
 import com.alibaba.nacos.plugin.datasource.manager.DatabaseDialectManager;
 import com.alibaba.nacos.plugin.datasource.mapper.AbstractMapper;
+import com.alibaba.nacos.plugin.datasource.model.MapperContext;
+import com.alibaba.nacos.plugin.datasource.model.MapperResult;
 
 /**
  * @author onewe
@@ -177,8 +181,9 @@ public abstract class AbstractOracleMapper extends AbstractMapper {
 		return databaseDialect;
 	}
 
-	@Override
 	public String getFunction(String functionName) {
-		return databaseDialect.getFunction(functionName);
+		return TrustedMysqlFunctionEnum.getFunctionByName(functionName);
 	}
+
+
 }

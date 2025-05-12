@@ -19,7 +19,9 @@ package com.alibaba.nacos.plugin.encryption;
 import com.alibaba.nacos.api.utils.StringUtils;
 import com.alibaba.nacos.common.codec.Base64;
 import com.alibaba.nacos.plugin.encryption.spi.EncryptionPluginService;
-import org.apache.commons.codec.binary.Hex;
+
+
+import com.alibaba.nacos.plugin.encryption.util.Hex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +61,7 @@ public class AesEncryptionPluginService implements EncryptionPluginService {
         }
         try {
             secretKey = new String(Base64.decodeBase64(secretKey.getBytes(StandardCharsets.UTF_8)));
-            Key key = new SecretKeySpec(Hex.decodeHex(secretKey.toCharArray()), AES_NAME);
+            Key key = new SecretKeySpec(Hex.decodeHex(secretKey), AES_NAME);
             Cipher cipher = Cipher.getInstance(AES_MODE);
             cipher.init(Cipher.ENCRYPT_MODE, key, generateIv(secretKey));
             byte[] result = cipher.doFinal(content.getBytes(StandardCharsets.UTF_8));
@@ -77,10 +79,10 @@ public class AesEncryptionPluginService implements EncryptionPluginService {
         }
         try {
             secretKey = new String(Base64.decodeBase64(secretKey.getBytes(StandardCharsets.UTF_8)));
-            Key key = new SecretKeySpec(Hex.decodeHex(secretKey.toCharArray()), AES_NAME);
+            Key key = new SecretKeySpec(Hex.decodeHex(secretKey), AES_NAME);
             Cipher cipher = Cipher.getInstance(AES_MODE);
             cipher.init(Cipher.DECRYPT_MODE, key, generateIv(secretKey));
-            byte[] result = cipher.doFinal(Hex.decodeHex(content.toCharArray()));
+            byte[] result = cipher.doFinal(Hex.decodeHex(content));
             return new String(result, StandardCharsets.UTF_8);
         } catch (Exception e) {
             LOGGER.error("[AesEncryptionPluginService] decrypt error", e);
